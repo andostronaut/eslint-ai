@@ -6,6 +6,11 @@
     "node": ">=14.14"
   },
   "license": "MIT",
+  "type": "module",
+  "bin": {
+    "ailint": "./dist/cli.mjs",
+    "ailint.js": "./dist/cli.mjs"
+  },
   "author": {
     "name": "iamando",
     "email": "iamando@tuta.io"
@@ -27,6 +32,9 @@
     "verify-code",
     "eslint",
     "suggestions"
+  ],
+  "files": [
+    "dist"
   ],
   "scripts": {
     "start": "jiti ./src/cli.ts",
