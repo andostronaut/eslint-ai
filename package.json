@@ -8,8 +8,7 @@
   "license": "MIT",
   "type": "module",
   "bin": {
-    "ailint": "./dist/cli.mjs",
-    "ailint.js": "./dist/cli.mjs"
+    "eslint-ai": "./dist/cli.mjs"
   },
   "author": {
     "name": "iamando",
@@ -24,6 +23,7 @@
   },
   "homepage": "https://github.com/iamando/ailint.js#readme",
   "keywords": [
+    "eslint-ai",
     "javascript",
     "typescript",
     "ai",
