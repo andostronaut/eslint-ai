@@ -1,0 +1,32 @@
+{
+  "name": "ailint.js",
+  "version": "1.0.0",
+  "description": "ailint.js is an cli tools that help us to lint and view suggestions from ai if we had a code error.",
+  "engines": {
+    "node": ">=14.14"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "iamando",
+    "email": "iamando@tuta.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/iamando/ailint.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/iamando/ailint.js/issues"
+  },
+  "homepage": "https://github.com/iamando/ailint.js#readme",
+  "keywords": [
+    "javascript",
+    "typescript",
+    "ai",
+    "linter",
+    "lint",
+    "verify-code",
+    "eslint",
+    "suggestions"
+  ],
+  "scripts": {}
+}
