@@ -1,1 +1,1 @@
-console.log('ailint.js')
+console.log('ai-eslint')
