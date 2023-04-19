@@ -1,1 +1,1 @@
-console.log('ai-eslint')
+console.log('eslint-ai')
