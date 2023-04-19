@@ -1,0 +1,3 @@
+theme: jekyll-theme-cayman
+title: eslint-ai
+description: eslint-ai is an cli tools that help us to lint and view suggestion from ai if we had a code error with eslint support.
