@@ -26,8 +26,6 @@ export const linter = async ({ input }: { input: string }) => {
       throw new Error(`An error occured, ${err.message}.`)
     }
 
-    console.log(
-      `\n${green('[OK]')} All files linted successfully with no error.`
-    )
+    console.log(`\n${green('✔')} All files linted successfully with no error.`)
   })
 }
