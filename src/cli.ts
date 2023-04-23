@@ -4,7 +4,7 @@ import config from './commands/config'
 import { COMMAND_NAME, VERSION } from './utils/constants'
 import { handleCliError } from './utils/cli-error'
 import log from './utils/log'
-import { linter } from './linter'
+import { linter } from './utils/linter'
 
 cli(
   {
