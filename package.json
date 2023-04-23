@@ -61,7 +61,7 @@
     "pkgroll": "^1.9.0",
     "prettier": "^2.8.7",
     "rimraf": "^5.0.0",
-    "typescript": "^4.9.5"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "@clack/core": "^0.3.2",
