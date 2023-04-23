@@ -24,10 +24,10 @@ export const configParsers = {
   OPENAI_KEY(key?: string) {
     if (!key) {
       throw new CliError(
-        'Please set your OpenAI API key via `eslint-ai config set OPENAI_KEY=<your token>`'
+        'Please set your OpenAI API key via `eslint-ai config set OPENAI_KEY=<your token>`.'
       )
     }
-    parseAssert('OPENAI_KEY', key.startsWith('sk-'), 'Must start with "sk-"')
+    parseAssert('OPENAI_KEY', key.startsWith('sk-'), 'Must start with "sk-".')
 
     return key
   },
@@ -81,7 +81,7 @@ export const setConfigs = async (keyValues: [key: string, value: string][]) => {
 
   for (const [key, value] of keyValues) {
     if (!hasOwn(configParsers, key)) {
-      throw new CliError(`Invalid config property: ${key}`)
+      throw new CliError(`Invalid config property: ${key}.`)
     }
 
     const parsed = configParsers[key as ConfigKeys](value)
@@ -131,7 +131,7 @@ export const showConfigUI = async () => {
       const key = await p.text({
         message: 'Enter your OpenAI API key',
         validate: value => {
-          if (!value) return 'API Key must be defined'
+          if (!value) return 'API Key must be defined.'
         },
       })
       if (p.isCancel(key)) {

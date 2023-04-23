@@ -6,4 +6,4 @@ export const VERSION = pkg.version
 export const AUTHOR = pkg.author.name
 export const PROJECT_NAME = pkg.name
 
-export const CANCELED_OP_MSG = 'Operation cancelled'
+export const CANCELED_OP_MSG = 'Operation cancelled.'
