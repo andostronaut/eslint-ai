@@ -1,7 +1,8 @@
 import { command } from 'cleye'
-import { red } from 'kolorist'
-import { hasOwn, getConfig, setConfigs, showConfigUI } from '../utils/config.js'
-import { CliError, handleCliError } from '../utils/cli-error.js'
+
+import { hasOwn, getConfig, setConfigs, showConfigUI } from '../utils/config'
+import { CliError, handleCliError } from '../utils/cli-error'
+import log from '../utils/log'
 
 export default command(
   {
@@ -19,7 +20,10 @@ export default command(
       }
 
       if (!keyValues.length) {
-        console.error('Error: Missing required parameter "key=value"\n')
+        log({
+          type: 'error',
+          msg: 'An error occured, missing required parameter "key=value"\n',
+        })
         argv.showHelp()
         return process.exit(1)
       }
@@ -41,10 +45,10 @@ export default command(
         return
       }
 
-      throw new CliError(`Invalid mode: ${mode}`)
-    })().catch(error => {
-      console.error(`\n${red('✖')} ${error.message}`)
-      handleCliError(error)
+      throw new CliError(`An error occured, invalid mode: ${mode}`)
+    })().catch((err: any) => {
+      log({ type: 'error', msg: `An error occured, ${err.message}` })
+      handleCliError(err)
       process.exit(1)
     })
   }

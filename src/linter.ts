@@ -1,8 +1,8 @@
 import { exec } from 'node:child_process'
 import path from 'path'
-import { green } from 'kolorist'
 
 import { CliError } from './utils/cli-error'
+import log from './utils/log'
 
 export const linter = async ({ input }: { input: string }) => {
   const files = input.split(' ')
@@ -23,9 +23,12 @@ export const linter = async ({ input }: { input: string }) => {
 
   exec(cmd, err => {
     if (err) {
-      throw new Error(`An error occured, ${err.message}.`)
+      throw new CliError(`An error occured, ${err.message}.`)
     }
 
-    console.log(`\n${green('✔')} All files linted successfully with no error.`)
+    log({
+      type: 'success',
+      msg: 'All files linted successfully with no error.',
+    })
   })
 }

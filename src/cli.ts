@@ -1,11 +1,9 @@
 import { cli } from 'cleye'
-import { red } from 'kolorist'
 
 import config from './commands/config'
-
 import { COMMAND_NAME, VERSION } from './utils/constants'
 import { handleCliError } from './utils/cli-error'
-
+import log from './utils/log'
 import { linter } from './linter'
 
 cli(
@@ -16,8 +14,8 @@ cli(
   },
   argv => {
     const input = argv._.join(' ')
-    linter({ input }).catch(err => {
-      console.error(`\n${red('✖')} ${err.message}`)
+    linter({ input }).catch((err: any) => {
+      log({ type: 'error', msg: `An error occured, ${err.message}` })
       handleCliError(err)
       process.exit(1)
     })

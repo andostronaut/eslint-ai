@@ -3,12 +3,12 @@ import os from 'os'
 import ini from 'ini'
 import path from 'path'
 import * as p from '@clack/prompts'
-import { red } from 'kolorist'
 import type { TiktokenModel } from '@dqbd/tiktoken'
 
 import { CliError, handleCliError } from './cli-error'
 import { CANCELED_OP_MSG } from './constants'
 import { ConfigKeys, RawConfig, ValidConfig } from '../types/config'
+import log from './log'
 
 const { hasOwnProperty } = Object.prototype
 export const hasOwn = (object: unknown, key: PropertyKey) =>
@@ -16,7 +16,9 @@ export const hasOwn = (object: unknown, key: PropertyKey) =>
 
 const parseAssert = (name: string, condition: any, message: string) => {
   if (!condition) {
-    throw new CliError(`Invalid config property ${name}: ${message}`)
+    throw new CliError(
+      `An error occured, invalid config property ${name}: ${message}`
+    )
   }
 }
 
@@ -81,7 +83,7 @@ export const setConfigs = async (keyValues: [key: string, value: string][]) => {
 
   for (const [key, value] of keyValues) {
     if (!hasOwn(configParsers, key)) {
-      throw new CliError(`Invalid config property: ${key}.`)
+      throw new CliError(`An error occured, invalid config property: ${key}.`)
     }
 
     const parsed = configParsers[key as ConfigKeys](value)
@@ -161,7 +163,7 @@ export const showConfigUI = async () => {
 
     showConfigUI()
   } catch (error: any) {
-    console.error(`\n${red('✖')} ${error.message}`)
+    log({ type: 'error', msg: `${error.message}` })
     handleCliError(error)
     process.exit(1)
   }
