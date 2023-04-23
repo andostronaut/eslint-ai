@@ -1,10 +1,10 @@
 import { cli } from 'cleye'
 import { red } from 'kolorist'
 
+import config from './commands/config'
+
 import { COMMAND_NAME, VERSION } from './utils/constants'
 import { handleCliError } from './utils/cli-error'
-
-import config from './commands/config'
 
 import { linter } from './linter'
 
