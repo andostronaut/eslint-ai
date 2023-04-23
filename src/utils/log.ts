@@ -2,7 +2,7 @@ import { blue, green, red, dim } from 'kolorist'
 
 type Type = 'info' | 'success' | 'error'
 
-const log = ({ type, msg }: { type: Type; msg: string }) => {
+const log = ({ type, msg }: { type?: Type; msg: string }) => {
   switch (type) {
     case 'info':
       return console.info(`\n${blue('❔')} ${msg}`)

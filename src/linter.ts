@@ -23,7 +23,7 @@ export const linter = async ({ input }: { input: string }) => {
 
   exec(cmd, err => {
     if (err) {
-      throw new Error(`An error occured, ${err.message}.`)
+      throw new CliError(`An error occured, ${err.message}.`)
     }
 
     log({
