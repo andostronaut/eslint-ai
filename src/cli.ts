@@ -15,8 +15,8 @@ cli(
     commands: [config],
   },
   argv => {
-    const prompt = argv._.join(' ')
-    linter({ prompt }).catch(err => {
+    const input = argv._.join(' ')
+    linter({ input }).catch(err => {
       console.error(`\n${red('✖')} ${err.message}`)
       handleCliError(err)
       process.exit(1)
