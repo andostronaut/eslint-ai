@@ -13,7 +13,7 @@ export const linter = async ({ input }: { input: string }) => {
 
   if (!hasValidExt) {
     throw new CliError(
-      'An error occured, please enter a valid file with `.js or .ts` ext.'
+      'An error occured, please enter a valid file with `.js or .ts` extension.'
     )
   }
 
