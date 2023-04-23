@@ -16,12 +16,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/iamando/ailint.js.git"
+    "url": "https://github.com/iamando/eslint-ai.git"
   },
   "bugs": {
-    "url": "https://github.com/iamando/ailint.js/issues"
+    "url": "https://github.com/iamando/eslint-ai/issues"
   },
-  "homepage": "https://github.com/iamando/ailint.js#readme",
+  "homepage": "https://github.com/iamando/eslint-ai#readme",
   "keywords": [
     "eslint-ai",
     "javascript",
