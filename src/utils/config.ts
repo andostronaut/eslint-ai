@@ -12,6 +12,12 @@ const { hasOwnProperty } = Object.prototype
 export const hasOwn = (object: unknown, key: PropertyKey) =>
   hasOwnProperty.call(object, key)
 
+const parseAssert = (name: string, condition: any, message: string) => {
+  if (!condition) {
+    throw new CliError(`Invalid config property ${name}: ${message}`)
+  }
+}
+
 const configParsers = {
   OPENAI_KEY(key?: string) {
     if (!key) {
@@ -19,6 +25,7 @@ const configParsers = {
         'Please set your OpenAI API key via `eslint-ai config set OPENAI_KEY=<your token>`'
       )
     }
+    parseAssert('OPENAI_KEY', key.startsWith('sk-'), 'Must start with "sk-"')
 
     return key
   },
@@ -28,6 +35,9 @@ const configParsers = {
     }
 
     return model
+  },
+  OPENAI_API_ENDPOINT(apiEndpoint?: string) {
+    return apiEndpoint || 'https://api.openai.com/v1'
   },
 } as const
 
@@ -103,6 +113,20 @@ export const showConfigUI = async () => {
             ? 'sk-...' + config.OPENAI_KEY.slice(-3)
             : '(not set)',
         },
+        {
+          label: 'OpenAi Model',
+          value: 'OPENAI_MODEL',
+          hint: hasOwn(config, 'OPENAI_MODEL')
+            ? config.OPENAI_MODEL
+            : '(not set)',
+        },
+        {
+          label: 'OpenAI API Endpoint',
+          value: 'OPENAI_API_ENDPOINT',
+          hint: hasOwn(config, 'OPENAI_API_ENDPOINT')
+            ? config.OPENAI_API_ENDPOINT
+            : '(not set)',
+        },
       ],
     })) as ConfigKeys | 'cancel' | symbol
 
@@ -123,6 +147,24 @@ export const showConfigUI = async () => {
         process.exit(0)
       }
       setConfigs([['OPENAI_KEY', key]])
+    } else if (choice === 'OPENAI_MODEL') {
+      const model = await p.text({
+        message: 'Enter the model you want to use',
+      })
+      if (p.isCancel(model)) {
+        p.cancel(CANCELED_OP_MSG)
+        process.exit(0)
+      }
+      setConfigs([['OPENAI_MODEL', model]])
+    } else if (choice === 'OPENAI_API_ENDPOINT') {
+      const apiEndpoint = await p.text({
+        message: 'Enter your OpenAI API Endpoint',
+      })
+      if (p.isCancel(apiEndpoint)) {
+        p.cancel(CANCELED_OP_MSG)
+        process.exit(0)
+      }
+      setConfigs([['OPENAI_API_ENDPOINT', apiEndpoint]])
     }
 
     showConfigUI()
