@@ -1,8 +1,8 @@
 import { exec } from 'node:child_process'
 import path from 'path'
 
-import { CliError } from './utils/cli-error'
-import log from './utils/log'
+import { CliError } from './cli-error'
+import log from './log'
 
 export const linter = async ({ input }: { input: string }) => {
   const files = input.split(' ')
