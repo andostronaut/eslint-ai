@@ -4,9 +4,20 @@ import ini from 'ini'
 import path from 'path'
 import * as p from '@clack/prompts'
 import { red } from 'kolorist'
+import type { TiktokenModel } from '@dqbd/tiktoken'
 
 import { CliError, handleCliError } from './cli-error'
 import { CANCELED_OP_MSG } from './constants'
+
+type ConfigKeys = keyof typeof configParsers
+
+type RawConfig = {
+  [key in ConfigKeys]?: string
+}
+
+type ValidConfig = {
+  [Key in ConfigKeys]: ReturnType<(typeof configParsers)[Key]>
+}
 
 const { hasOwnProperty } = Object.prototype
 export const hasOwn = (object: unknown, key: PropertyKey) =>
@@ -34,22 +45,12 @@ const configParsers = {
       return 'code-davinci-002'
     }
 
-    return model
+    return model as TiktokenModel
   },
   OPENAI_API_ENDPOINT(apiEndpoint?: string) {
     return apiEndpoint || 'https://api.openai.com/v1'
   },
 } as const
-
-type ConfigKeys = keyof typeof configParsers
-
-type RawConfig = {
-  [key in ConfigKeys]?: string
-}
-
-type ValidConfig = {
-  [Key in ConfigKeys]: ReturnType<(typeof configParsers)[Key]>
-}
 
 const configPath = path.join(os.homedir(), '.eslint-ai')
 
