@@ -1,5 +1,6 @@
 import { exec } from 'node:child_process'
 import path from 'path'
+import { green } from 'kolorist'
 
 import { CliError } from './utils/cli-error'
 
@@ -12,7 +13,7 @@ export const linter = async ({ input }: { input: string }) => {
 
   if (!hasValidExt) {
     throw new CliError(
-      'An error occured, please enter a valid file with `.js or .ts` ext'
+      'An error occured, please enter a valid file with `.js or .ts` ext.'
     )
   }
 
@@ -20,11 +21,13 @@ export const linter = async ({ input }: { input: string }) => {
     Array.isArray(files) && files.length !== 0 ? files.join(' ') : ''
   }`
 
-  exec(cmd, (err, stdout) => {
+  exec(cmd, err => {
     if (err) {
-      throw new Error(`An error occured, ${err.message}`)
+      throw new Error(`An error occured, ${err.message}.`)
     }
 
-    console.log(stdout)
+    console.log(
+      `\n${green('[OK]')} All files linted successfully with no error.`
+    )
   })
 }
