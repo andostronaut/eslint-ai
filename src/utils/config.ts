@@ -8,16 +8,7 @@ import type { TiktokenModel } from '@dqbd/tiktoken'
 
 import { CliError, handleCliError } from './cli-error'
 import { CANCELED_OP_MSG } from './constants'
-
-type ConfigKeys = keyof typeof configParsers
-
-type RawConfig = {
-  [key in ConfigKeys]?: string
-}
-
-type ValidConfig = {
-  [Key in ConfigKeys]: ReturnType<(typeof configParsers)[Key]>
-}
+import { ConfigKeys, RawConfig, ValidConfig } from '../types/config'
 
 const { hasOwnProperty } = Object.prototype
 export const hasOwn = (object: unknown, key: PropertyKey) =>
@@ -29,7 +20,7 @@ const parseAssert = (name: string, condition: any, message: string) => {
   }
 }
 
-const configParsers = {
+export const configParsers = {
   OPENAI_KEY(key?: string) {
     if (!key) {
       throw new CliError(
