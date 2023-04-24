@@ -60,11 +60,9 @@ export const suggest = async ({
         response.data as unknown as IncomingMessage
       )
       try {
-        // Handle if the message is JSON. It should be but occasionally will
-        // be HTML, so lets handle both
         message = JSON.parse(message)
       } catch (e) {
-        // Ignore
+        /* ingnore */
       }
     }
 
