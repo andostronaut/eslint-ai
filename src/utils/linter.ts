@@ -23,6 +23,9 @@ export const linter = async ({ input }: { input: string }) => {
 
   exec(cmd, err => {
     if (err) {
+      const error = err.stack?.split('\n').slice(1).join('\n')
+      console.log(error)
+
       throw new CliError(`An error occured, ${err.message}.`)
     }
 
