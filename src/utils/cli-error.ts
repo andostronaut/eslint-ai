@@ -12,7 +12,7 @@ export const handleCliError = (error: any) => {
     if (error.stack) {
       log({
         type: 'error',
-        msg: `${error.stack.split('\n').slice(1).join('\n')}`,
+        msg: error.stack.split('\n').slice(1).join('\n'),
       })
     }
     log({
