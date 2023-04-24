@@ -62,7 +62,7 @@ export const suggest = async ({
       try {
         message = JSON.parse(message)
       } catch (e) {
-        /* ingnore */
+        /* ignore */
       }
     }
 
