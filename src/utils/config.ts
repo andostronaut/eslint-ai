@@ -162,9 +162,9 @@ export const showConfigUI = async () => {
     }
 
     showConfigUI()
-  } catch (error: any) {
-    log({ type: 'error', msg: `${error.message}` })
-    handleCliError(error)
+  } catch (err: any) {
+    log({ type: 'error', msg: err.message })
+    handleCliError(err)
     process.exit(1)
   }
 }
