@@ -28,7 +28,16 @@ export const linter = async ({ input }: { input: string }) => {
   exec(cmd, err => {
     if (err) {
       const error = err.stack?.split('\n').filter(e => e !== '')[3] || ''
-      throw new CliError(`An error occured, ${error}.`)
+
+      spin.stop(
+        log({
+          type: 'error',
+          msg: error,
+          isConsole: false,
+        }) as string
+      )
+
+      return
     }
 
     spin.stop(
