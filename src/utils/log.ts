@@ -9,8 +9,8 @@ const log = ({
 }: {
   type?: Type
   msg: string
-  isConsole: boolean
-}): string | void => {
+  isConsole?: boolean
+}) => {
   switch (type) {
     case 'info':
       return isConsole

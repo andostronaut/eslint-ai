@@ -27,7 +27,8 @@ export const linter = async ({ input }: { input: string }) => {
 
   exec(cmd, err => {
     if (err) {
-      const error = err.stack?.split('\n').filter(e => e !== '')[3] || ''
+      const error: string =
+        err.stack?.split('\n').filter(e => e !== '')[3] || ''
 
       spin.stop(
         log({
