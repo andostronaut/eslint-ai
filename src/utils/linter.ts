@@ -30,10 +30,12 @@ export const linter = async ({ input }: { input: string }) => {
       const error: string =
         err.stack?.split('\n').filter(e => e !== '')[3] || ''
 
+      const prompt = `eslint: ${error.toLocaleLowerCase()}`
+
       spin.stop(
         log({
           type: 'error',
-          msg: error,
+          msg: prompt,
           isConsole: false,
         }) as string
       )
