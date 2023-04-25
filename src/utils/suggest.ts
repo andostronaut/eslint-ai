@@ -32,7 +32,7 @@ export const suggest = async ({
   try {
     const completion = await openAi.createChatCompletion(
       {
-        model: model || 'code-davinci-002',
+        model: model || 'gpt-3.5-turbo',
         messages: Array.isArray(error)
           ? error
           : [{ role: 'user', content: error }],
@@ -62,7 +62,7 @@ export const suggest = async ({
       try {
         message = JSON.parse(message)
       } catch (e) {
-        /* ingnore */
+        /* ignore */
       }
     }
 

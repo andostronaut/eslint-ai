@@ -35,7 +35,7 @@ export const configParsers = {
   },
   OPENAI_MODEL(model?: string) {
     if (!model || model.length === 0) {
-      return 'code-davinci-002'
+      return 'gpt-3.5-turbo'
     }
 
     return model as TiktokenModel

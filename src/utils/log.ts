@@ -2,16 +2,32 @@ import { blue, green, red, dim } from 'kolorist'
 
 type Type = 'info' | 'success' | 'error'
 
-const log = ({ type, msg }: { type?: Type; msg: string }) => {
+const log = ({
+  type,
+  msg,
+  isConsole = true,
+}: {
+  type?: Type
+  msg: string
+  isConsole: boolean
+}): string | void => {
   switch (type) {
     case 'info':
-      return console.info(`\n${blue('❔')} ${msg}`)
+      return isConsole
+        ? console.info(`\n${blue('❔')} ${msg}`)
+        : `\n${blue('❔')} ${msg}`
     case 'success':
-      return console.log(`\n${green('✔')} ${msg}`)
+      return isConsole
+        ? console.log(`\n${green('✔')} ${msg}`)
+        : `\n${green('✔')} ${msg}`
     case 'error':
-      return console.error(`\n${red('❌')} ${msg}`)
+      return isConsole
+        ? console.error(`\n${red('❌')} ${msg}`)
+        : `\n${red('❌')} ${msg}`
     default:
-      return console.log(`\n${dim('❕')} ${msg}`)
+      return isConsole
+        ? console.log(`\n${dim('❕')} ${msg}`)
+        : `\n${dim('❕')} ${msg}`
   }
 }
 

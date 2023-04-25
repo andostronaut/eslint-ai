@@ -1,11 +1,13 @@
 import { exec } from 'node:child_process'
 import path from 'path'
+import * as p from '@clack/prompts'
 
 import { CliError } from './cli-error'
 import log from './log'
 
 export const linter = async ({ input }: { input: string }) => {
   const files = input.split(' ')
+  const spin = p.spinner()
 
   const hasValidExt = files.every(
     file => path.extname(file) === '.js' || path.extname(file) === '.ts'
@@ -21,17 +23,20 @@ export const linter = async ({ input }: { input: string }) => {
     Array.isArray(files) && files.length !== 0 ? files.join(' ') : ''
   }`
 
+  spin.start('Linting your code')
+
   exec(cmd, err => {
     if (err) {
-      const error = err.stack?.split('\n').slice(1).join('\n')
-      console.log(error)
-
-      throw new CliError(`An error occured, ${err.message}.`)
+      const error = err.stack?.split('\n').filter(e => e !== '')[3] || ''
+      throw new CliError(`An error occured, ${error}.`)
     }
 
-    log({
-      type: 'success',
-      msg: 'All files linted successfully with no error.',
-    })
+    spin.stop(
+      log({
+        type: 'success',
+        msg: 'All files linted successfully with no error.',
+        isConsole: false,
+      }) as string
+    )
   })
 }
