@@ -58,9 +58,11 @@ export const linter = async ({ input }: { input: string }) => {
               process.exit(0)
             },
           }
-        ).then(({ assist }) => {
-          console.log(assist)
-        })
+        )
+          .then(({ assist }) => {
+            console.log(assist)
+          })
+          .finally(() => p.outro('Goodbye!'))
       } else {
         spin.stop(
           log({
