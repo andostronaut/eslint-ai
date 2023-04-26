@@ -5,6 +5,8 @@ import * as p from '@clack/prompts'
 import { CliError } from './cli-error'
 import log from './log'
 import { CANCELED_OP_MSG } from './constants'
+import { getResponse } from './completion'
+import { getConfig } from './config'
 
 export const linter = async ({ input }: { input: string }) => {
   const files = input.split(' ')
@@ -59,10 +61,36 @@ export const linter = async ({ input }: { input: string }) => {
             },
           }
         )
-          .then(({ assist }) => {
-            console.log(assist)
+          .then(async ({ assist }) => {
+            if (assist) {
+              const {
+                OPENAI_KEY: key,
+                OPENAI_MODEL: model,
+                OPENAI_API_ENDPOINT: apiEndpoint,
+              } = await getConfig()
+
+              if (!key) {
+                throw new CliError(
+                  'Please set your MonkeyLearn API key via `eslint-ai config set OPENAI_KEY=<your token>`'
+                )
+              }
+
+              spin.start('Checking response')
+
+              const { readExplanation } = await getResponse({
+                prompt,
+                key,
+                model,
+                apiEndpoint,
+              })
+
+              console.log(readExplanation)
+            }
           })
-          .finally(() => p.outro('Goodbye!'))
+          .finally(() => {
+            spin.stop()
+            p.outro('Goodbye!')
+          })
       } else {
         spin.stop(
           log({
