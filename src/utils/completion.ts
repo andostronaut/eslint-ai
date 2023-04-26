@@ -4,6 +4,8 @@ import { IncomingMessage } from 'http'
 import { CliError } from './cli-error'
 import type { AxiosError } from 'axios'
 import { streamToString } from './stream-to-string'
+import { streamToIterable } from './stream-to-iterable'
+import { readData } from './read-data'
 
 function getOpenAi(key: string, apiEndpoint: string) {
   const openAi = new OpenAIApi(
@@ -91,4 +93,26 @@ export const generateCompletion = async ({
 
     throw error
   }
+}
+
+export const getResponse = async ({
+  prompt,
+  key,
+  model,
+  apiEndpoint,
+}: {
+  prompt: string
+  key: string
+  model?: string
+  apiEndpoint: string
+}) => {
+  const stream = await generateCompletion({
+    prompt,
+    key,
+    number: 1,
+    model,
+    apiEndpoint,
+  })
+  const iterableStream = streamToIterable(stream)
+  return { readExplanation: readData(iterableStream, () => true) }
 }
