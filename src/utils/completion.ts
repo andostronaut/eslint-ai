@@ -51,6 +51,7 @@ export const generateCompletion = async ({
 
     const response = error.response
     let message = response?.data as string | object | IncomingMessage
+
     if (response && message instanceof IncomingMessage) {
       message = await streamToString(
         response.data as unknown as IncomingMessage
@@ -63,6 +64,7 @@ export const generateCompletion = async ({
     }
 
     const messageString = message && JSON.stringify(message, null, 2)
+
     if (response?.status === 429) {
       throw new CliError(
         dedent`
