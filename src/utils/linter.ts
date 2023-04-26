@@ -23,32 +23,33 @@ export const linter = async ({ input }: { input: string }) => {
     Array.isArray(files) && files.length !== 0 ? files.join(' ') : ''
   }`
 
-  spin.start('Linting your code')
+  ;(async () => {
+    spin.start('Linting your code')
 
-  exec(cmd, err => {
-    if (err) {
-      const error: string =
-        err.stack?.split('\n').filter(e => e !== '')[3] || ''
+    exec(cmd, err => {
+      if (err) {
+        const error: string =
+          err.stack?.split('\n').filter(e => e !== '')[3] || ''
 
-      const prompt = `eslint: ${error.toLocaleLowerCase()}`
+        const prompt = `eslint: ${error.toLocaleLowerCase()}`
 
-      spin.stop(
-        log({
-          type: 'error',
-          msg: prompt,
-          isConsole: false,
-        }) as string
-      )
-
-      return
-    }
-
-    spin.stop(
-      log({
-        type: 'success',
-        msg: 'All files linted successfully with no error.',
-        isConsole: false,
-      }) as string
-    )
-  })
+        spin.stop(
+          log({
+            type: 'error',
+            msg: prompt,
+            isConsole: false,
+            newLine: false,
+          }) as string
+        )
+      } else {
+        spin.stop(
+          log({
+            type: 'success',
+            msg: 'All files linted successfully with no error.',
+            isConsole: false,
+          }) as string
+        )
+      }
+    })
+  })()
 }
