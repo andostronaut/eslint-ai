@@ -4,6 +4,7 @@ import * as p from '@clack/prompts'
 
 import { CliError } from './cli-error'
 import log from './log'
+import { CANCELED_OP_MSG } from './constants'
 
 export const linter = async ({ input }: { input: string }) => {
   const files = input.split(' ')
@@ -23,7 +24,7 @@ export const linter = async ({ input }: { input: string }) => {
     Array.isArray(files) && files.length !== 0 ? files.join(' ') : ''
   }`
 
-  ;(async () => {
+  ;(() => {
     spin.start('Linting your code')
 
     exec(cmd, err => {
@@ -41,6 +42,25 @@ export const linter = async ({ input }: { input: string }) => {
             newLine: false,
           }) as string
         )
+
+        p.group(
+          {
+            error: () => p.note(`An error found, '${prompt}'`),
+            assist: () =>
+              p.confirm({
+                message: 'Check response for this error ?',
+                initialValue: true,
+              }),
+          },
+          {
+            onCancel: () => {
+              p.cancel(CANCELED_OP_MSG)
+              process.exit(0)
+            },
+          }
+        ).then(({ assist }) => {
+          console.log(assist)
+        })
       } else {
         spin.stop(
           log({
