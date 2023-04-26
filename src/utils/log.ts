@@ -6,27 +6,29 @@ const log = ({
   type,
   msg,
   isConsole = true,
+  newLine = true,
 }: {
   type?: Type
   msg: string
   isConsole?: boolean
+  newLine?: boolean
 }) => {
   switch (type) {
     case 'info':
       return isConsole
-        ? console.info(`\n${blue('❔')} ${msg}`)
+        ? console.info(`${newLine ? '\n' : ''} ${blue('❔')} ${msg}`)
         : `\n${blue('❔')} ${msg}`
     case 'success':
       return isConsole
-        ? console.log(`\n${green('✔')} ${msg}`)
+        ? console.log(`${newLine ? '\n' : ''} ${green('✔')} ${msg}`)
         : `\n${green('✔')} ${msg}`
     case 'error':
       return isConsole
-        ? console.error(`\n${red('❌')} ${msg}`)
+        ? console.error(` ${newLine ? '\n' : ''} ${red('❌')} ${msg}`)
         : `\n${red('❌')} ${msg}`
     default:
       return isConsole
-        ? console.log(`\n${dim('❕')} ${msg}`)
+        ? console.log(`${newLine ? '\n' : ''} ${dim('❕')} ${msg}`)
         : `\n${dim('❕')} ${msg}`
   }
 }
