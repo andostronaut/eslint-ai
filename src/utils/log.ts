@@ -17,19 +17,19 @@ const log = ({
     case 'info':
       return isConsole
         ? console.info(`${newLine ? '\n' : ''} ${blue('❔')} ${msg}`)
-        : `\n${blue('❔')} ${msg}`
+        : `${newLine ? '\n' : ''} ${blue('❔')} ${msg}`
     case 'success':
       return isConsole
         ? console.log(`${newLine ? '\n' : ''} ${green('✔')} ${msg}`)
-        : `\n${green('✔')} ${msg}`
+        : `${newLine ? '\n' : ''} ${green('✔')} ${msg}`
     case 'error':
       return isConsole
         ? console.error(` ${newLine ? '\n' : ''} ${red('❌')} ${msg}`)
-        : `\n${red('❌')} ${msg}`
+        : `${newLine ? '\n' : ''} ${red('❌')} ${msg}`
     default:
       return isConsole
         ? console.log(`${newLine ? '\n' : ''} ${dim('❕')} ${msg}`)
-        : `\n${dim('❕')} ${msg}`
+        : `${newLine ? '\n' : ''} ${dim('❕')} ${msg}`
   }
 }
 
