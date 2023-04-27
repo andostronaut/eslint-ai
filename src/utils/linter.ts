@@ -25,9 +25,7 @@ export const linter = async ({ input }: { input: string }) => {
       )
     }
 
-    cmd = `npx eslint ${
-      Array.isArray(files) && files.length !== 0 ? files.join(' ') : ''
-    }`
+    cmd = `npx eslint ${files.join(' ')}`
   } else {
     cmd = 'npx eslint'
   }
