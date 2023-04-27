@@ -28,7 +28,9 @@ eslint-ai config ui # to use ui prompt directly
 Recommended
 
 ```bash
-npx eslint-ai
+npx eslint-ai # basic usage
+
+npx eslint-ai <file> # you can specify a list of file to lint
 ```
 
 Using global installation
@@ -38,7 +40,9 @@ npm install -g eslint-ai # npm
 yarn add global eslint-ai # yarn
 
 
-eslint-ai
+eslint-ai # basic usage
+
+eslint-ai <file> # you can specify a list of file to lint
 ```
 
 ## Support
