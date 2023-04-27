@@ -23,6 +23,24 @@ eslint-ai config set OPENAI_API_ENDPOINT=<your api endpoint> # for specifing you
 eslint-ai config ui # to use ui prompt directly
 ```
 
+## Usage
+
+Recommended
+
+```bash
+npx eslint-ai
+```
+
+Using global installation
+
+```bash
+npm install -g eslint-ai # npm
+yarn add global eslint-ai # yarn
+
+
+eslint-ai
+```
+
 ## Support
 
 eslint-ai is an MIT-licensed open source project. It can grow thanks to the sponsors and support.
