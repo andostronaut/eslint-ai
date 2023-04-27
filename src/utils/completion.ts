@@ -1,11 +1,9 @@
-import { OpenAIApi, Configuration, ChatCompletionRequestMessage } from 'openai'
+import { OpenAIApi, Configuration } from 'openai'
 import dedent from 'dedent'
 import { IncomingMessage } from 'http'
 import { CliError } from './cli-error'
 import type { AxiosError } from 'axios'
 import { streamToString } from './stream-to-string'
-import { streamToIterable } from './stream-to-iterable'
-import { readData } from './read-data'
 
 function getOpenAi(key: string, apiEndpoint: string) {
   const openAi = new OpenAIApi(
@@ -16,32 +14,23 @@ function getOpenAi(key: string, apiEndpoint: string) {
 
 export const generateCompletion = async ({
   prompt,
-  number = 1,
   key,
   model,
   apiEndpoint,
 }: {
-  prompt: string | ChatCompletionRequestMessage[]
-  number?: number
+  prompt: string
   model?: string
   key: string
   apiEndpoint: string
 }) => {
   const openAi = getOpenAi(key, apiEndpoint)
   try {
-    const completion = await openAi.createChatCompletion(
-      {
-        model: model || 'gpt-3.5-turbo',
-        messages: Array.isArray(prompt)
-          ? prompt
-          : [{ role: 'user', content: prompt }],
-        n: Math.min(number, 10),
-        stream: true,
-      },
-      { responseType: 'stream' }
-    )
+    const completion = await openAi.createChatCompletion({
+      model: model || 'gpt-3.5-turbo',
+      messages: [{ role: 'user', content: prompt }],
+    })
 
-    return completion.data as unknown as IncomingMessage
+    return completion.data?.choices[0]?.message?.content as string
   } catch (err) {
     const error = err as AxiosError
 
@@ -93,26 +82,4 @@ export const generateCompletion = async ({
 
     throw error
   }
-}
-
-export const getResponse = async ({
-  prompt,
-  key,
-  model,
-  apiEndpoint,
-}: {
-  prompt: string
-  key: string
-  model?: string
-  apiEndpoint: string
-}) => {
-  const stream = await generateCompletion({
-    prompt,
-    key,
-    number: 1,
-    model,
-    apiEndpoint,
-  })
-  const iterableStream = streamToIterable(stream)
-  return { readExplanation: readData(iterableStream, () => true) }
 }

@@ -5,7 +5,7 @@ import * as p from '@clack/prompts'
 import { CliError } from './cli-error'
 import log from './log'
 import { CANCELED_OP_MSG } from './constants'
-import { getResponse } from './completion'
+import { generateCompletion } from './completion'
 import { getConfig } from './config'
 
 export const linter = async ({ input }: { input: string }) => {
@@ -77,14 +77,14 @@ export const linter = async ({ input }: { input: string }) => {
 
               spin.start('Checking response')
 
-              const { readExplanation } = await getResponse({
+              const completion = await generateCompletion({
                 prompt,
                 key,
                 model,
                 apiEndpoint,
               })
 
-              console.log(readExplanation)
+              console.log(completion)
             }
           })
           .finally(() => {
