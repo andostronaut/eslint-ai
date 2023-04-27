@@ -84,11 +84,17 @@ export const linter = async ({ input }: { input: string }) => {
                 apiEndpoint,
               })
 
-              console.log(completion)
+              spin.stop(
+                log({
+                  type: 'info',
+                  msg: completion,
+                  isConsole: false,
+                  newLine: false,
+                }) as string
+              )
             }
           })
           .finally(() => {
-            spin.stop()
             p.outro('Goodbye!')
           })
       } else {
