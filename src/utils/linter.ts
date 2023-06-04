@@ -76,7 +76,7 @@ export const linter = async ({ input }: { input: string }) => {
 
               if (!key) {
                 throw new CliError(
-                  'Please set your MonkeyLearn API key via `eslint-ai config set OPENAI_KEY=<your token>`'
+                  'Please set your OpenAI API key via `eslint-ai config set OPENAI_KEY=<your token>`'
                 )
               }
 
