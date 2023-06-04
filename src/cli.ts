@@ -1,6 +1,7 @@
 import { cli } from 'cleye'
 
 import config from './commands/config'
+import update from './commands/update'
 import { COMMAND_NAME, VERSION } from './utils/constants'
 import { handleCliError } from './utils/cli-error'
 import log from './utils/log'
@@ -10,7 +11,7 @@ cli(
   {
     name: COMMAND_NAME,
     version: VERSION,
-    commands: [config],
+    commands: [config, update],
   },
   argv => {
     const input = argv._.join(' ')
