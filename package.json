@@ -1,6 +1,6 @@
 {
   "name": "eslint-ai",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "eslint-ai is an cli tools that help us to lint and view suggestion from ai if we had a code error with eslint support.",
   "engines": {
     "node": ">=14.14"
