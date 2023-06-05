@@ -45,6 +45,14 @@ eslint-ai # basic usage
 eslint-ai <file> # you can specify a list of file to lint
 ```
 
+### Update
+
+To update to the latest version, use:
+
+```shell
+eslint-ai update
+```
+
 ## Support
 
 eslint-ai is an MIT-licensed open source project. It can grow thanks to the sponsors and support.
