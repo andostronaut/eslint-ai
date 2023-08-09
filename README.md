@@ -37,7 +37,7 @@ Using global installation
 
 ```bash
 npm install -g eslint-ai # npm
-yarn add global eslint-ai # yarn
+yarn global add eslint-ai # yarn
 
 
 eslint-ai # basic usage
